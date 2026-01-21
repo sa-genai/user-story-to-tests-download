@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { generateTests } from './api'
+import { generateTests, downloadAsJSON, downloadAsCSV, downloadAsXLSX } from './api'
 import { GenerateRequest, GenerateResponse, TestCase } from './types'
 
 function App() {
@@ -195,6 +195,61 @@ function App() {
           margin-bottom: 20px;
           padding-bottom: 15px;
           border-bottom: 2px solid #e1e8ed;
+        }
+        
+        .download-buttons {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 25px;
+          flex-wrap: wrap;
+        }
+        
+        .download-btn {
+          background: #27ae60;
+          color: white;
+          border: none;
+          padding: 10px 18px;
+          border-radius: 6px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        
+        .download-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .download-btn:active {
+          transform: translateY(0);
+        }
+        
+        .json-btn {
+          background: #3498db;
+        }
+        
+        .json-btn:hover {
+          background: #2980b9;
+        }
+        
+        .csv-btn {
+          background: #e67e22;
+        }
+        
+        .csv-btn:hover {
+          background: #d35400;
+        }
+        
+        .xlsx-btn {
+          background: #27ae60;
+        }
+        
+        .xlsx-btn:hover {
+          background: #229954;
         }
         
         .results-title {
@@ -427,6 +482,27 @@ function App() {
                 {results.model && ` • Model: ${results.model}`}
                 {results.promptTokens > 0 && ` • Tokens: ${results.promptTokens + results.completionTokens}`}
               </div>
+            </div>
+            
+            <div className="download-buttons">
+              <button 
+                className="download-btn json-btn"
+                onClick={() => downloadAsJSON(results)}
+              >
+                📄 Download JSON
+              </button>
+              <button 
+                className="download-btn csv-btn"
+                onClick={() => downloadAsCSV(results)}
+              >
+                📊 Download CSV
+              </button>
+              <button 
+                className="download-btn xlsx-btn"
+                onClick={() => downloadAsXLSX(results)}
+              >
+                📈 Download XLSX
+              </button>
             </div>
             
             <div className="table-container">
